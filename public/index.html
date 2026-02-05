@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API AWS - Usuarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <div class="buttons">
+            <button id="btnMostrar" class="btn btn-primary">Mostrar Usuarios</button>
+            <button id="btnLimpiar" class="btn btn-secondary">Limpiar</button>
+        </div>
+        <div id="loading" class="loading" style="display: none;">
+            Cargando usuarios...
+        </div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="usuarios" class="usuarios-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
