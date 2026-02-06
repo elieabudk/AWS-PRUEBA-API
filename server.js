@@ -6,7 +6,7 @@ const fs = require('fs');
 const logger = require('./logger');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // Crear carpeta de logs si no existe
 const logsDir = path.join(__dirname, 'logs');
