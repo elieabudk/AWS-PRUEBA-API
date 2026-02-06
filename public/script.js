@@ -9,7 +9,7 @@ const errorDiv = document.getElementById('error');
 // Si no, usar localhost:3000 directamente
 const API_BASE_URL = window.location.port === '8080' 
     ? '' 
-    : 'http://localhost:8080';
+    : 'http://13.39.95.222:8080';
 
 // Función para mostrar usuarios
 async function mostrarUsuarios() {
@@ -47,7 +47,7 @@ async function mostrarUsuarios() {
         
         // Mensajes más específicos según el tipo de error
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-            mensajeError = 'No se pudo conectar al servidor. Asegúrate de que el servidor Express esté corriendo en http://localhost:3000';
+            mensajeError = 'No se pudo conectar al servidor. Asegúrate de que el servidor Express esté corriendo en http://13.39.95.222:8080';
         }
         
         mostrarError(mensajeError);
