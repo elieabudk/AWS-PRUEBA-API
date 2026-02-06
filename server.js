@@ -24,16 +24,19 @@ app.use(express.json());
 app.get('/api/users', async (req, res) => {
   try {
     logger.info(`Solicitud recibida para obtener usuarios desde: ${req.headers.origin || 'directo'}`);
-    console.log(`[${new Date().toISOString()}] GET /api/users - Origin: ${req.headers.origin || 'N/A'}`);
+  
     
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    // Leer datos desde data.json
+    const dataPath = path.join(__dirname, 'data.json');
+    const fileContent = await fs.promises.readFile(dataPath, 'utf8');
+    const users = JSON.parse(fileContent);
     
-    logger.info(`Usuarios obtenidos exitosamente: ${response.data.length} usuarios`);
-    
+    logger.info(`Usuarios obtenidos exitosamente: ${users.length} usuarios`);
+
     res.json({
       success: true,
-      data: response.data,
-      count: response.data.length
+      data: users,
+      count: users.length
     });
   } catch (error) {
     logger.error('Error al obtener usuarios:', error.message);
