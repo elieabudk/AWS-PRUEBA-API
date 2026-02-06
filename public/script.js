@@ -7,9 +7,9 @@ const errorDiv = document.getElementById('error');
 // Detectar la URL base del API
 // Si estamos en el puerto 3000 (servidor Express), usar ruta relativa
 // Si no, usar localhost:3000 directamente
-const API_BASE_URL = window.location.port === '3000' 
+const API_BASE_URL = window.location.port === '8080' 
     ? '' 
-    : 'http://localhost:3000';
+    : 'http://localhost:8080';
 
 // Función para mostrar usuarios
 async function mostrarUsuarios() {
