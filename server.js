@@ -54,32 +54,24 @@ app.get('/api/users', async (req, res) => {
 });
 
 
-app.get('/api/users/obtener', async (req, res) => {
-  try {
-    pool.query('SELECT * FROM users', (err, results) => {
-      if (err) {
-        logger.error('Error al obtener usuarios desde la base de datos:', err.message);
-        res.status(500).json({
-          success: false,
-          error: 'Error al obtener usuarios desde la base de datos',
-          message: err.message
-        });
-      }
-      logger.info(`Usuarios obtenidos exitosamente desde la base de datos: ${results.length} usuarios`);
-      res.json({
-        success: true,
-        data: results,
-        count: results.length
+app.get('/api/users/obtener', (req, res) => {
+  pool.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      logger.error('Error al obtener usuarios desde la base de datos:', err.message);
+      return res.status(500).json({
+        success: false,
+        error: 'Error al obtener usuarios desde la base de datos',
+        message: err.message
       });
+    }
+    const list = Array.isArray(results) ? results : [];
+    logger.info(`Usuarios obtenidos exitosamente desde la base de datos: ${list.length} usuarios`);
+    res.json({
+      success: true,
+      data: list,
+      count: list.length
     });
-  } catch (error) {
-    logger.error('Error al obtener usuarios desde la base de datos:', error.message);
-    res.status(500).json({
-      success: false,
-      error: 'Error al obtener usuarios desde la base de datos',
-      message: error.message
-    });
-  }
+  });
 });
 
 app.post('/api/users/crear', async (req, res) => {
@@ -88,17 +80,17 @@ app.post('/api/users/crear', async (req, res) => {
     pool.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [name, email, password], (err, results) => {
       if (err) {
         logger.error('Error al crear usuario en la base de datos:', err.message);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           error: 'Error al crear usuario en la base de datos',
           message: err.message
-
         });
       }
-      logger.info(`Usuario creado exitosamente en la base de datos: ${results.insertId}`);
+      const insertId = results && results.insertId != null ? results.insertId : null;
+      logger.info(`Usuario creado exitosamente en la base de datos: ${insertId}`);
       res.json({
         success: true,
-        data: results.insertId,
+        data: insertId,
         message: 'Usuario creado exitosamente'
       });
     });
