@@ -25,6 +25,13 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoint para obtener usuarios (ANTES del middleware estático)
+app.get('/api/users/saludo', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Hola desde la API'
+  });
+});
+
 app.get('/api/users', async (req, res) => {
   try {
     logger.info(`Solicitud recibida para obtener usuarios desde: ${req.headers.origin || 'directo'}`);
