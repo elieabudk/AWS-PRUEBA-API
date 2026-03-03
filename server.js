@@ -25,11 +25,20 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoint para obtener usuarios (ANTES del middleware estático)
-app.get('/api/users/saludo', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Hola desde la API'
-  });
+app.get('/api/users/saludo', async (req, res) => {
+  try {
+    res.json({
+      success: true,
+      message: 'Hola desde la API'
+    });
+  } catch (error) {
+    logger.error('Error al obtener el saludo:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener el saludo',
+      message: error.message
+    });
+  }
 });
 
 app.get('/api/users', async (req, res) => {
