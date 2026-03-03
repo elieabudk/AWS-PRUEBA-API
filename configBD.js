@@ -5,10 +5,11 @@ dotenv.config();
 
 const poolConfig = {
     connectionLimit: 10,
-    host: process.env.RDS_HOST,
-    user: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    database: process.env.RDS_DATABASE,
+    host: process.env.HOST,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    port: process.env.PORT,
     waitForConnections: true,
     queueLimit: 0
 };
